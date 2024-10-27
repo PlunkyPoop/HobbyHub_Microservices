@@ -1,0 +1,32 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hobby-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hobbyservice
+  template:
+    metadata:
+      labels:
+        app: hobbyservice
+    spec:
+      containers:
+        - name: hobbyservice
+          image: docker.io/janinevansaaze/hobbyservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hobbies-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: hobbyservice
+  ports:
+    - name: hobbyservice
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  
