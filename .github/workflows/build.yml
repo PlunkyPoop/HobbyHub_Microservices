@@ -44,7 +44,7 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"plunkypoop_hobbyhub_HobbyService" /o:"plunkypoop" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.projectBaseDir="HobbyService"
-          dotnet build HobbyService/HobbyService.csproj
+          dotnet build HobbyService/HobbyService.sln
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       - name: Build and analyze UserService
@@ -54,5 +54,5 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"plunkypoop_hobbyhub_UserService" /o:"plunkypoop" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.projectBaseDir="UserService"
-          dotnet build UserService/UserService.csproj
+          dotnet build UserService/UserService.sln
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
