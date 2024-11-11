@@ -115,3 +115,4 @@ C:\Users\Frizb\OneDrive\Documenten\HobbyHub\HobbyHub\HobbyService\bin\Debug\net8
 C:\Users\Frizb\OneDrive\Documenten\HobbyHub\HobbyHub\HobbyService\bin\Debug\net8.0\Grpc.Core.Api.dll
 C:\Users\Frizb\OneDrive\Documenten\HobbyHub\HobbyHub\HobbyService\bin\Debug\net8.0\Grpc.Net.Client.dll
 C:\Users\Frizb\OneDrive\Documenten\HobbyHub\HobbyHub\HobbyService\bin\Debug\net8.0\Grpc.Net.Common.dll
+C:\Users\Frizb\OneDrive\Documenten\HobbyHub\HobbyHub\HobbyService\obj\Debug\net8.0\HobbyService.sourcelink.json

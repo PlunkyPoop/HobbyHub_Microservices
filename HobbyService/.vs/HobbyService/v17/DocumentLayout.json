@@ -1,12 +1,37 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Frizb\\OneDrive\\Documenten\\HobbyHub\\HobbyHub\\HobbyService\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DFD3A248-4386-4214-92DF-5443673B827A}|HobbyService.csproj|c:\\users\\frizb\\onedrive\\documenten\\hobbyhub\\hobbyhub\\hobbyservice\\hobbyservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{DFD3A248-4386-4214-92DF-5443673B827A}|HobbyService.csproj|solutionrelative:hobbyservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HobbyService",
+              "DocumentMoniker": "C:\\Users\\Frizb\\OneDrive\\Documenten\\HobbyHub\\HobbyHub\\HobbyService\\HobbyService.csproj",
+              "RelativeDocumentMoniker": "HobbyService.csproj",
+              "ToolTip": "C:\\Users\\Frizb\\OneDrive\\Documenten\\HobbyHub\\HobbyHub\\HobbyService\\HobbyService.csproj",
+              "RelativeToolTip": "HobbyService.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-11-04T11:05:53.939Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

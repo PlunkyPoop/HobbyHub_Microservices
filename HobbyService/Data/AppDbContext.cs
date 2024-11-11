@@ -20,7 +20,7 @@ public class AppDbContext : DbContext
         modelBuilder
             .Entity<User>()
             .HasMany(p => p.Hobbies)
-            .WithOne(p => p.User!)
+            .WithOne(p => p.User)
             .HasForeignKey(p => p.UserId);
         
         modelBuilder

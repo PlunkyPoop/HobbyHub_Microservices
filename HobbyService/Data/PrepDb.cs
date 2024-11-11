@@ -21,14 +21,22 @@ public static class PrepDb
       private static void SeedData(IHobbyRepo repo, IEnumerable<User> users)
       {
             Console.WriteLine("--> Seeding data...");
-
-            foreach (var user in users)
+            if (users != null)
             {
-                  if (!repo.ExternalUserExists(user.ExternalId))
+                  foreach (var user in users)
                   {
-                       repo.CreateUser(user);
-                  }
-                  repo.SaveChanges();
+                        if (!repo.ExternalUserExists(user.ExternalId))
+                        {
+                              repo.CreateUser(user);
+                        }
+                        repo.SaveChanges();
+                  }  
             }
+            else
+            {
+                  Console.WriteLine("--> No users found.");
+            }
+
+
       }
 }
