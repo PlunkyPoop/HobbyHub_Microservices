@@ -3,62 +3,53 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    types: [opened, synchronize, reopened]
+      - main
+
 jobs:
-  build:
-    name: Build and analyze
-    runs-on: windows-latest
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
     steps:
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-java@v3
         with:
           java-version: 17
-          distribution: 'zulu' # Alternative distribution options are available.
-      - uses: actions/checkout@v4
+          distribution: 'zulu'
+
+      - uses: actions/cache@v3
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v4
-        with:
-          path: ~\sonar\cache
+          path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Debug Paths
-        run: |
-          echo "Current Directory: $(pwd)"
-          echo "Contents:"
-          ls -R
-      - name: Cache SonarCloud scanner
-        id: cache-sonar-scanner
-        uses: actions/cache@v4
+
+      - uses: actions/cache@v3
         with:
-          path: .\.sonar\scanner
-          key: ${{ runner.os }}-sonar-scanner
-          restore-keys: ${{ runner.os }}-sonar-scanner
-      - name: Install SonarCloud scanner
-        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-        shell: powershell
-        run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory
-          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-      - name: Build and analyze HobbyService
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build and analyze services
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"plunkypoop_hobbyhub-hobbyService" /o:"plunkypoop" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.projectBaseDir="D:\a\HobbyHub_Microservices\HobbyHub_Microservices\HobbyService"
-          dotnet build HobbyService/HobbyService.sln
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          # List of service directories and corresponding SonarCloud project keys
+          declare -A services=(
+            ["HobbyService"]="plunkypoop_hobbyhub-hobbyService"
+            ["UserService"]="plunkypoop_hobbyhub-userService"
+            # Add more services here as needed
+          )
 
-      - name: Build and analyze UserService
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        shell: powershell
-        run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"plunkypoop_hobbyhub-userService" /o:"plunkypoop" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.projectBaseDir="D:\a\HobbyHub_Microservices\HobbyHub_Microservices\UserService"
-          dotnet build UserService/UserService.sln
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-
+          for service in "${!services[@]}"; do
+            echo "Building and analyzing $service"
+            cd $service
+            mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+              -Dsonar.projectKey=${services[$service]} \
+              -Dsonar.organization=plunkypoop \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.login=$SONAR_TOKEN
+            cd ..
+          done
