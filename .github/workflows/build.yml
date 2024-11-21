@@ -48,7 +48,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"plunkypoop_hobbyhub_HobbyService" /o:"plunkypoop" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.projectBaseDir="D:\a\HobbyHub_Microservices\HobbyHub_Microservices\HobbyService"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"plunkypoop_hobbyhub-hobbyService" /o:"plunkypoop" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.projectBaseDir="D:\a\HobbyHub_Microservices\HobbyHub_Microservices\HobbyService"
           dotnet build HobbyService/HobbyService.sln
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
@@ -58,7 +58,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"plunkypoop_hobbyhub_UserService" /o:"plunkypoop" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.projectBaseDir="D:\a\HobbyHub_Microservices\HobbyHub_Microservices\UserService"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"plunkypoop_hobbyhub-userService" /o:"plunkypoop" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.projectBaseDir="D:\a\HobbyHub_Microservices\HobbyHub_Microservices\UserService"
           dotnet build UserService/UserService.sln
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
